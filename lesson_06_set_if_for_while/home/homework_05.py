@@ -7,12 +7,23 @@ print("Підтримувані операції: +, -")
 num1 = float(input("Введіть перше число: "))
 operation = input("Введіть операцію (+, -, ): ")
 num2 = float(input("Введіть друге число: "))
+if operation == "+" :
+    print("summ=", num1 + num2)
+else :
+    print("rizn=", num1 - num2) 
 
 
 # Вправа 2: Перевірка паролю
 print("\n=== ВПРАВА 2: Перевірка паролю ===")
 print("Створіть систему перевірки паролю")
 print("Пароль повинен містити принаймні 8 символів")
+
+password =  input("Введіть пароль: ")
+
+if len(password) >= 8:
+    print("Пароль прийнято! Він достатньо довгий.")
+else:
+    print("Помилка: пароль занадто короткий! Має бути не менше 8 символов.")
 
 
 # Вправа 3: Визначення високосного року
@@ -21,6 +32,11 @@ print("Рік є високосним, якщо:")
 print("- Ділиться на 4 І не ділиться на 100")
 print("- АБО ділиться на 400")
 
+rik_test = int(input("введіть рік"))
+if (rik_test % 4 == 0 and rik_test % 100 != 0) or (rik_test % 400 == 0):
+    print("Рік є високосним:", rik_test)
+else:
+    print("Рік НЕ є високосним:", rik_test)
 
 # Вправа 4: Лічильник голосних
 print("\n=== ВПРАВА 4: Лічильник голосних ===")
@@ -29,6 +45,11 @@ print("Підрахуйте кількість голосних у рядку")
 text = input("Введіть текст: ").lower()
 vowels = "аеиіїоуюя"
 count = 0
+for t in text:
+    if t in vowels:
+        count = count + 11
+
+    
 
 # код тут
 
@@ -46,6 +67,17 @@ print("\n=== ВПРАВА 5: Гра ===")
 Якщо колір прибульця red - надрукуйте, що гравець щойно заробив 15 балів.
 Перевірте роботу гри самостійно, змінюючи значення alien_color
 """
+alien_color = input("Введіть колір прибульця (green, yellow, red): " )
+ball = 0
+if alien_color == "green":
+    ball = 5
+    print(f"ваш бал=", {ball})
+elif alien_color == "yellow":
+    ball = 10
+    print(f"ваш бал=", {ball})
+elif alien_color == "red":
+    ball = 15
+    print(f"ваш бал=", {ball})
 
 
 
@@ -55,12 +87,26 @@ print("\n=== ВПРАВА 6: Начинки для піци (pizza_topping) ==="
 для піци, доки він не введе значення 'quit'. Коли вони введуть кожну начинку,
 надрукуйте повідомлення про те, що ви додасте цю начинку до їхньої піци.
 """
+pizza_toppings = []
+while True:
+    nachinka = input("Додати начинку: ").lower()
+    if nachinka == "quit":
+        break
+    pizza_toppings.append(nachinka)
+    print(f"Ваші начинки: {pizza_toppings}")
+
+print(f"Готово! Ваша піца містить: {', '.join(pizza_toppings)}")
 
 
 
 # Вправа 7: Зворотний порядок цифр
 print("\n=== ВПРАВА 7: Зворотний порядок ===")
 print("Виведіть цифри числа у зворотному порядку")
+chyslo = input("введіть число",)
+chyslo_list = list(chyslo)
+reversed_list = chyslo_list[::-1]
+final_number = "".join(reversed_list)
+print(f"Число у зворотному порядку: {final_number}")
 
 
 
@@ -69,6 +115,20 @@ print("\n=== ВПРАВА 8: Пошук максимального ===")
 print("Знайдіть найбільше число серед введених")
 print("Введіть 0 для завершення")
 
+array_chysel = []
+
+while True:
+    chyslo = int(input("Введіть число, або 0 для завершення: "))
+
+    if chyslo == 0:
+        break
+
+    array_chysel.append(chyslo)
+
+if array_chysel:
+    print(f"Максимальне число: {max(array_chysel)}")
+else:
+    print("Ви не ввели жодного числа!")
 
 # Вправа 9: Виключення зі списку
 print("\n=== ВПРАВА 9: Виключення зі списку ===")
@@ -77,6 +137,12 @@ print("\n=== ВПРАВА 9: Виключення зі списку ===")
 """
 fruits = ["apple", "banana", "orange", "grape", "mango"]
 
+for fruit in (fruits):
+    if fruit == "orange":
+        continue
+    print(fruit)
+
+
 
 # Вправа 10: Вираз в один рядок
 print("\n=== ВПРАВА 10: Вираз з умовою в один рядок ===")
@@ -84,5 +150,5 @@ print("\n=== ВПРАВА 10: Вираз з умовою в один рядок 
 парних чисел зі списку. Спробуйте використати if та цикл for в один рядок.
 """
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-result = ["Відповідь вставте сюди"]
+result = result = [i**2 for i in numbers if i % 2 == 0]
 print(result)  #  [4, 16, 36, 64, 100]
