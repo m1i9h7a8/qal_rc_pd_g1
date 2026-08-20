@@ -1,0 +1,2 @@
+My note in file a.txt.
+My note in file b.txt.
