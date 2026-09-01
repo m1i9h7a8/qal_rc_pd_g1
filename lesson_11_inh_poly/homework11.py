@@ -63,9 +63,18 @@ class ZaporozhianSich:
         return [cossack.name for cossack in self.cossacks]
 
 
-cossack = Cossack("Іван Сірко", "Кальміуський")
+sich = ZaporozhianSich("Чортомлицька Січ", capacity=3)
 
-cossack.arm("шабля")
-cossack.arm("мушкет")
-print(cossack.win_battle("яничари"))
-print(cossack)
+ivan = Cossack("Іван Сірко", "Кальміуський")
+petro = Cossack("Петро Сагайдачний", "Канівський")
+
+ivan.win_battle("яничари")
+ivan.win_battle("татари")
+petro.win_battle("поляки")
+
+sich.enlist(ivan)
+sich.enlist(petro)
+
+print(sich.call_to_battle("турки"))
+print(sich.best_warrior())
+print(sich.roster())
