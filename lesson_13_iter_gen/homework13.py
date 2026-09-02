@@ -32,3 +32,80 @@ chain = ChainOfOrders(["Дід", "Батько", "Михайлик", "Васил
 
 for message in chain:
     print(message)
+
+
+def village_rumor(start_message, people):
+    
+    current_rumor = start_message
+
+    for i in range(len(people)):
+        person = people[i]
+        
+        # Визначаємо дієслово: для першої людини "каже", для інших "переказує"
+        action = "каже" if i == 0 else "переказує"
+        
+        # Повертаємо поточний стан чутки через yield
+        yield f'{person} {action}: "{current_rumor}"'
+        
+        # Модифікуємо чутку для НАСТУПНОЇ людини
+        if i == len(people) - 2:
+            # Якщо наступна людина остання, додаємо фінальну фразу
+            current_rumor = f"{current_rumor} (переказала {person}) (і всі дізналися!)"
+        else:
+            # Для всіх інших випадків просто додаємо ім'я того, хто переказав
+            current_rumor = f"{current_rumor} (переказала {person})"
+
+for version in village_rumor("Теля втекло!", ["Горпина", "Параска", "Явдоха", "Оксана"]):
+    print(version)
+
+ivents = [
+    "Михайлик передав доручення",
+    "Василько відмовився",
+    "Грицько передав доручення",
+    "Оленка прив'язала теля",
+    "Данилко передав доручення",
+]
+
+count = sum(1 for ev in ivents if "передав доручення" in ev and ev.split()[0])
+
+print(f"Доручення передавали {count} рази")
+
+
+import itertools
+
+def toloka_queue(workers):
+    if not workers:
+        return
+        
+    # itertools.cycle нескінченно повторює елементи списку по колу
+    for worker in itertools.cycle(workers):
+        yield f"Черга: {worker}"
+
+# --- Перевірка роботи ---
+queue = toloka_queue(["Іван", "Марія", "Степан"])
+
+# Беремо рівно 7 чергувань з нескінченного генератора
+for turn in itertools.islice(queue, 7):
+    print(turn)
+
+def find_calf(log):
+    for line in log:
+        # Перевіряємо обидва варіанти дієслова в рядку
+        if "прив'язав" in line or "прив'язала" in line:
+            yield line
+            return  # Зупиняє генератор відразу після першої знахідки
+
+# --- Перевірка роботи ---
+journal = [
+    "Михайлик отримав доручення",
+    "Михайлик передав Василькові",
+    "Василько загрався",
+    "Василько передав Оленці",
+    "Оленка прив'язала теля біля хліва",
+    "Оленка пішла додому",
+    "Дід заспокоївся",
+]
+
+# Використовуємо next(), щоб отримати лише перший знайдений рядок
+result = next(find_calf(journal))
+print(result)
