@@ -1,0 +1,32 @@
+{
+    "expedition_id": 1,
+    "researcher": "Дослідник А",
+    "location": "Диканька",
+    "date": "2026-05-10",
+    "records": [
+        {
+            "title": "Ой у лузі червона калина",
+            "genre": "пісня",
+            "region": "Полтавщина",
+            "narrator": "Ганна Остапенко",
+            "year": 1932,
+            "content": "Текст...",
+            "tags": [
+                "історична"
+            ],
+            "verified": true
+        },
+        {
+            "title": "Про лисицю та журавля",
+            "genre": "казка",
+            "region": "Поділля",
+            "narrator": "баба Олена",
+            "year": 1954,
+            "content": "Казка...",
+            "tags": [
+                "дітям"
+            ],
+            "verified": true
+        }
+    ]
+}
