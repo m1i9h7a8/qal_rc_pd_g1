@@ -1,0 +1,32 @@
+{
+    "expedition_id": 3,
+    "researcher": "Дослідник В",
+    "location": "Охтирка",
+    "date": "2026-07-20",
+    "records": [
+        {
+            "title": "Хліб — усьому голова",
+            "genre": "прислів'я",
+            "region": "Слобожанщина",
+            "narrator": "дід Панас",
+            "year": 1985,
+            "content": "Зміст...",
+            "tags": [
+                "мудрість"
+            ],
+            "verified": true
+        },
+        {
+            "title": "Ой роду нашого красного",
+            "genre": "пісня",
+            "region": "Полтавщина",
+            "narrator": "Анна М.",
+            "year": 2002,
+            "content": "Текст...",
+            "tags": [
+                "родина"
+            ],
+            "verified": false
+        }
+    ]
+}
