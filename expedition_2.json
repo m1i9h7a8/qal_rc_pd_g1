@@ -1,0 +1,32 @@
+{
+    "expedition_id": 2,
+    "researcher": "Дослідник Б",
+    "location": "Верховина",
+    "date": "2026-06-15",
+    "records": [
+        {
+            "title": "Летіла зозуля",
+            "genre": "пісня",
+            "region": "Полтавщина",
+            "narrator": "Микола С.",
+            "year": 1968,
+            "content": "Текст...",
+            "tags": [
+                "сумна"
+            ],
+            "verified": true
+        },
+        {
+            "title": "Легенда про Довбуша",
+            "genre": "легенда",
+            "region": "Гуцульщина",
+            "narrator": "дід Михайло",
+            "year": 1980,
+            "content": "Текст...",
+            "tags": [
+                "Довбуш"
+            ],
+            "verified": false
+        }
+    ]
+}
