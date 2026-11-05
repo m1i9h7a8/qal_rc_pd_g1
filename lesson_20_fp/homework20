@@ -1,0 +1,32 @@
+
+salaries = [30000, 45000, 28000, 60000, 52000, 33000]
+
+# 1. Підвищення на 10%
+raised = list(map(lambda s: s * 1.1, salaries))
+
+# 2. Тільки ті, що БІЛЬШЕ 35000
+high = list(filter(lambda s: s > 35000, raised))
+
+# 3. Сума (просто передаємо список у функцію sum)
+total = sum(high)
+
+ris_total = sum(raised)
+
+print(f"Сума більших за 3500: {total:.2f} грн")  
+
+print(f"Сума усіх: {ris_total:.2f} грн")
+
+
+
+text = "Python це потужна мова програмування яка підходить для різних задач"
+
+# 1. Розбиваємо текст на окремі слова
+words = text.split()
+
+# 2. Фільтруємо за допомогою lambda: довжина > 4 ТА слово повністю в нижньому регістрі (.islower())
+filtered_words = filter(lambda w: len(w) > 4 and w.islower(), words)
+
+# 3. Прибираємо дублікати через set та сортуємо за алфавітом
+long_lowercase = sorted(set(filtered_words))
+
+print(long_lowercase)
