@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "amount": 15000.0,
+    "transaction_type": "income",
+    "category": "Salary",
+    "description": "",
+    "date": "2026-11-21 20:58:01"
+  }
+]
