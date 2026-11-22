@@ -1,0 +1,65 @@
+﻿$env:PGPASSWORD="11223344"; psql -U postgres -d expense_tracker -c "\d users" -c "\d categories" -c "\d transactions" -c "\d budgets" | Out-File -FilePath schema_info.txt -Encoding utf8
+
+
+                                        Table "public.users"
+   Column   |            Type             | Collation | Nullable |              Default              
+------------+-----------------------------+-----------+----------+-----------------------------------
+ id         | integer                     |           | not null | nextval('users_id_seq'::regclass)
+ username   | character varying(100)      |           | not null | 
+ email      | character varying(100)      |           | not null | 
+ currency   | character varying(3)        |           |          | 'UAH'::character varying
+ created_at | timestamp without time zone |           |          | now()
+Indexes:
+    "users_pkey" PRIMARY KEY, btree (id)
+    "users_email_key" UNIQUE CONSTRAINT, btree (email)
+    "users_username_key" UNIQUE CONSTRAINT, btree (username)
+Referenced by:
+    TABLE "budgets" CONSTRAINT "budgets_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    TABLE "categories" CONSTRAINT "categories_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    TABLE "transactions" CONSTRAINT "transactions_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+
+                                    Table "public.categories"
+ Column  |          Type          | Collation | Nullable |                Default                 
+---------+------------------------+-----------+----------+----------------------------------------
+ id      | integer                |           | not null | nextval('categories_id_seq'::regclass)
+ name    | character varying(100) |           | not null | 
+ user_id | integer                |           | not null | 
+Indexes:
+    "categories_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "categories_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+Referenced by:
+    TABLE "budgets" CONSTRAINT "budgets_category_id_fkey" FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+    TABLE "transactions" CONSTRAINT "transactions_category_id_fkey" FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+
+                                           Table "public.transactions"
+      Column      |            Type             | Collation | Nullable |                 Default                  
+------------------+-----------------------------+-----------+----------+------------------------------------------
+ id               | integer                     |           | not null | nextval('transactions_id_seq'::regclass)
+ amount           | numeric(10,2)               |           | not null | 
+ transaction_type | character varying(20)       |           | not null | 
+ category_id      | integer                     |           |          | 
+ description      | text                        |           |          | 
+ user_id          | integer                     |           | not null | 
+ transaction_date | date                        |           |          | CURRENT_DATE
+ created_at       | timestamp without time zone |           |          | now()
+Indexes:
+    "transactions_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "transactions_category_id_fkey" FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+    "transactions_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+
+                                   Table "public.budgets"
+    Column     |     Type      | Collation | Nullable |               Default               
+---------------+---------------+-----------+----------+-------------------------------------
+ id            | integer       |           | not null | nextval('budgets_id_seq'::regclass)
+ category_id   | integer       |           | not null | 
+ monthly_limit | numeric(10,2) |           | not null | 
+ month         | date          |           | not null | 
+ user_id       | integer       |           | not null | 
+Indexes:
+    "budgets_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "budgets_category_id_fkey" FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+    "budgets_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+
