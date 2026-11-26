@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Панель керування | Expense Tracker{% endblock %}
+
+{% block content %}
+<h2>Привіт, {{ user_name }}! Твоя панель керування</h2>
+
+<div class="summary">
+    <div class="card income">
+        <h3>Дохід цього місяця</h3>
+        <p class="amount">{{ total_income|floatformat:2 }} ₴</p>
+    </div>
+    <div class="card expense">
+        <h3>Витрати цього місяця</h3>
+        <p class="amount">{{ total_expense|floatformat:2 }} ₴</p>
+    </div>
+    <div class="card balance">
+        <h3>Баланс</h3>
+        <p class="amount {% if balance < 0 %}negative{% endif %}">
+            {{ balance|floatformat:2 }} ₴
+        </p>
+    </div>
+</div>
+
+<h3>Останні транзакції</h3>
+<table class="transactions-table">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Категорія</th>
+            <th>Тип</th>
+            <th>Сума</th>
+            <th>Дія</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for trans in recent_transactions %}
+        <tr>
+            <td>{{ trans.date|date:"d.m.Y" }}</td>
+            <td>{{ trans.category }}</td>
+            <td class="type-{{ trans.type|lower }}">{{ trans.type }}</td>
+            <td class="{% if trans.type == 'Income' %}type-income{% else %}type-expense{% endif %}">
+                {{ trans.amount|floatformat:2 }} ₴
+            </td>
+            <td>
+                <a href="{% url 'transaction-detail' trans.id %}">Деталі</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="5">Транзакцій немає. Додайте першу!</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'add-transaction' %}" class="btn btn-primary">+ Додати транзакцію</a>
+{% endblock %}

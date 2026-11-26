@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Бюджети | Expense Tracker{% endblock %}
+
+{% block content %}
+<h2>Мої бюджети</h2>
+
+<div class="budgets-grid">
+{% for budget in budgets %}
+    <div class="budget-card">
+        <h3>{{ budget.category }}</h3>
+        <p>Ліміт: <strong>{{ budget.limit|floatformat:2 }} ₴</strong></p>
+        <p>Витрачено: {{ budget.spent|floatformat:2 }} ₴</p>
+        <p>Залишок: {{ budget.remaining|floatformat:2 }} ₴</p>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ budget.percentage }}%"></div>
+        </div>
+        <small>Використано {{ budget.percentage }}%</small>
+
+        <div class="card-actions">
+            <a href="{% url 'edit-budget' budget.id %}">Редагувати</a> |
+            <a href="{% url 'delete-budget' budget.id %}">Видалити</a>
+        </div>
+    </div>
+{% empty %}
+    <p>Бюджетів немає. Створіть перший бюджет!</p>
+{% endfor %}
+</div>
+
+<a href="{% url 'add-budget' %}" class="btn btn-primary">+ Додати бюджет</a>
+{% endblock %}

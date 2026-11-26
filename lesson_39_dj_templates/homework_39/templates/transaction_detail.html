@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Деталі транзакції #{{ trans.id }} | Expense Tracker{% endblock %}
+
+{% block content %}
+<h2>Деталі транзакції #{{ trans.id }}</h2>
+
+<div class="detail-box">
+    <p><strong>Дата:</strong> {{ trans.date|date:"d.m.Y" }}</p>
+    <p><strong>Категорія:</strong> {{ trans.category }}</p>
+    <p><strong>Тип:</strong> <span class="type-{{ trans.type|lower }}">{{ trans.type }}</span></p>
+    <p><strong>Сума:</strong> {{ trans.amount|floatformat:2 }} ₴</p>
+    <p><strong>Опис:</strong> {{ trans.description }}</p>
+    <p><strong>Дата створення:</strong> {{ trans.created_at|date:"d.m.Y H:i" }}</p>
+</div>
+
+<div class="actions-bar">
+    <a href="{% url 'transactions' %}" class="btn">← Назад до списку</a>
+    <a href="{% url 'edit-transaction' trans.id %}" class="btn btn-primary">Редагувати</a>
+</div>
+{% endblock %}

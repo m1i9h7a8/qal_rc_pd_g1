@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Транзакції | Expense Tracker{% endblock %}
+
+{% block content %}
+<h2>Всі транзакції</h2>
+
+<div class="filters">
+    <a href="{% url 'transactions' %}" class="filter-btn {% if not filter %}active{% endif %}">Всі</a>
+    <a href="?type=income" class="filter-btn {% if filter == 'income' %}active{% endif %}">Дохід</a>
+    <a href="?type=expense" class="filter-btn {% if filter == 'expense' %}active{% endif %}">Витрати</a>
+</div>
+
+<table class="transactions-table">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Категорія</th>
+            <th>Тип</th>
+            <th>Сума</th>
+            <th>Дія</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for trans in transactions %}
+        <tr>
+            <td>{{ trans.date|date:"d.m.Y" }}</td>
+            <td>{{ trans.category }}</td>
+            <td class="type-{{ trans.type|lower }}">{{ trans.type }}</td>
+            <td>{{ trans.amount|floatformat:2 }} ₴</td>
+            <td class="actions">
+                <a href="{% url 'transaction-detail' trans.id %}">Деталі</a> |
+                <a href="{% url 'edit-transaction' trans.id %}">Редагувати</a> |
+                <a href="{% url 'delete-transaction' trans.id %}">Видалити</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="5">Транзакцій немає</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'add-transaction' %}" class="btn btn-primary">+ Додати транзакцію</a>
+{% endblock %}
